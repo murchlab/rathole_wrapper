@@ -1,0 +1,6 @@
+[client]
+remote_addr = "www.example.com:35282"
+
+[client.services.example]
+token = "exmaple"
+local_addr = "127.0.0.1:16591"
