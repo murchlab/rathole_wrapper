@@ -2,6 +2,7 @@ import requests
 import os
 import zipfile
 from subprocess import Popen
+from typing import NoReturn
 
 # Define the directory path where the current file is located
 dir = os.path.dirname(os.path.realpath(__file__))
@@ -10,7 +11,7 @@ rathole_exe_path = os.path.join(dir, 'rathole.exe')
 
 
 # Function to download a file from a specified URL to a specified path
-def download_file(url, path):
+def download_file(url: str, path: str) -> NoReturn:
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
         with open(path, 'wb') as f:
@@ -19,7 +20,7 @@ def download_file(url, path):
 
 
 # Function to download the rathole executable
-def download_rathole():
+def download_rathole() -> NoReturn:
     # URL to download the rathole executable from
     url = "https://github.com/rapiz1/rathole/releases/download/v0.4.7/rathole-x86_64-pc-windows-msvc.zip"
     # Define the path for the rathole.zip file
@@ -34,7 +35,7 @@ def download_rathole():
 
 
 # Function to initialize the rathole service
-def initialize():
+def initialize() -> NoReturn:
     # If the rathole.exe file does not exist, download it
     if not os.path.exists(rathole_exe_path):
         download_rathole()
@@ -49,14 +50,14 @@ def start(config_path: str) -> Popen:
 
 # Class to manage the rathole service
 class RatholeService:
-    def __init__(self, config_path):
+    def __init__(self, config_path: str):
         # Store the path to the configuration file
         self.config_path = config_path
         # Initialize the process variable to None
         self.process = None
 
     # Function to start the rathole service
-    def start(self):
+    def start(self) -> NoReturn:
         # If the rathole service is not running, start it
         if self.process is None:
             self.process = start(self.config_path)
@@ -64,14 +65,14 @@ class RatholeService:
             print('Rathole is already running!')
 
     # Function to stop the rathole service
-    def stop(self):
+    def stop(self) -> NoReturn:
         # Terminate the rathole service
         self.process.terminate()
         # Set the process variable to None
         self.process = None
     
     # Function to restart the rathole service
-    def restart(self):
+    def restart(self) -> NoReturn:
         # Start the rathole service
         self.start()
         # Stop the rathole service
