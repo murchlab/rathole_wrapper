@@ -77,6 +77,13 @@ class RatholeService:
         # Stop the rathole service
         self.stop()
 
+    def __enter__(self):
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stop()
+
 
 # Call the initialize
 initialize()
