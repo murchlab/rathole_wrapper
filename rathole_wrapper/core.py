@@ -43,7 +43,7 @@ def initialize() -> None:
 # Function to start the rathole service with a specified configuration file
 def start(config_path: str) -> None:
     # Start the rathole service with the specified configuration file
-    process = Popen([rathole_exe_path, config_path])
+    process = Popen([rathole_exe_path, config_path], shell=True)
     return process
 
 
